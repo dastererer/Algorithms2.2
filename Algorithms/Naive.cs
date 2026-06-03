@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Algorithms
 {
     class Naive
@@ -9,7 +5,7 @@ namespace Algorithms
         public static string[] RunAlgorithm(string text, string[] wordList, string[] namesList)
         {
             var wrongSpells = new List<string>();
-            string[] words = text.Split(Program.delimiters, StringSplitOptions.RemoveEmptyEntries);
+            string[] words = text.Split(Program.delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var word in words)
             {
