@@ -43,6 +43,11 @@ ScaffoldingReadMe.txt
 ~$*
 *~
 CodeCoverage/
+BenchmarkDotNet.Artifacts/
+
+# Local large source texts (do not commit)
+data/texts/harry_potter_prisoner_of_azkaban.txt
+data/texts/hash_tables/harry_potter_prisoner_of_azkaban.txt
 
 # MSBuild Binary and Structured Log
 *.binlog
