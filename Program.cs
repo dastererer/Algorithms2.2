@@ -20,7 +20,7 @@ namespace Algorithms
 
         static void Main(string[] args)
         {
-            BenchmarkRunner.Run<Benchmarks>();
+            BenchmarkRunner.Run<BenchmarkHashTables>();
         }
     }
 }

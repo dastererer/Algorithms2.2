@@ -3,11 +3,9 @@ using BenchmarkDotNet.Attributes;
 namespace Algorithms
 {
     [MemoryDiagnoser]
-    public class Benchmarks
+    public class BenchmarkSpellCheckers
     {
-        HashTables.ChainingHashTable<string, string> chainingHashTable;
         private Tools _tools;
-        Random random = new Random();
 
         [GlobalSetup]
         public void Setup()
@@ -17,7 +15,6 @@ namespace Algorithms
             _tools.pathToText = @"data\texts\little_prince__with_errors.txt";
             _tools.pathToWordList = @"data\dictionaries\english_words.txt";
             _tools.pathToNamesList = @"data\dictionaries\english_names.txt";
-            _tools.pathToTextHashTables = @"data\texts\hash_tables\lorem.txt";
             
         }
 
@@ -60,11 +57,6 @@ namespace Algorithms
             TrieAlg.Build(_tools.wordList, _tools.namesList);
         } 
 
-        [Benchmark]
-        public void BenchmarkChaining()
-        {
-            int i = random.Next(0, _tools.InsertHashTables.Length-1);
-            chainingHashTable.Insert(_tools.InsertHashTables[i], i.ToString());
-        }
+
     }
 }
