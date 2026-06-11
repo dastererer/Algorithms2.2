@@ -2,12 +2,11 @@ namespace Algorithms
 {
     class Naive
     {
-        public static string[] RunAlgorithm(string text, string[] wordList, string[] namesList)
+        public static string[] RunAlgorithm(string[] text, string[] wordList, string[] namesList)
         {
             var wrongSpells = new List<string>();
-            string[] words = text.Split(Program.delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var word in words)
+            foreach (var word in text)
             {
                 if (!wordList.Contains(word, StringComparer.OrdinalIgnoreCase))
                 {

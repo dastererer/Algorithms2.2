@@ -1,8 +1,8 @@
 namespace Algorithms
 {
-    class HashMap
+    class TrieAlg
     {
-        public static string[] RunAlgorithm(string[] text, string[] wordList, string[] namesList, HashSet<string>? wordSet = null)
+        public static string[] RunAlgorithm(string[] text, string[] wordList, string[] namesList, Trie? wordSet = null)
         {
             var wrongSpells = new List<string>();
 
@@ -16,10 +16,15 @@ namespace Algorithms
             }
             return wrongSpells.ToArray(); 
         }
-        public static HashSet<string> Build(string[] wordList, string[] namesList)
+        public static Trie Build(string[] wordList, string[] namesList)
         {
-            var wordSet = new HashSet<string>(wordList.Concat(namesList), StringComparer.OrdinalIgnoreCase);
-            return wordSet;
+            var trie = new Trie();
+            foreach (var word in wordList.Concat(namesList))
+            {
+                trie.Insert(word);
+            }
+            return trie;
         }
+
     }
 }
