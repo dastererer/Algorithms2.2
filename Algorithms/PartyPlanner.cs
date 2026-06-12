@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+using Algorithms;
 namespace Algorithms.Graphs
 {
     public class PartyPlanner

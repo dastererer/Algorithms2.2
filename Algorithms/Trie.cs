@@ -1,3 +1,5 @@
+using Algorithms.HashTables;
+
 namespace Algorithms
 {
     class TrieAlg
@@ -9,7 +11,7 @@ namespace Algorithms
             if(wordSet == null){wordSet = Build(wordList, namesList);}
             foreach (var word in text)
             {
-                if (!wordSet.Contains(word))
+                if (!wordSet.Search(word))
                 {
                     wrongSpells.Add(word);
                 }

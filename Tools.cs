@@ -1,50 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
 namespace Algorithms
 {
-    class Tools
+    public class Tools
     {
         private string? _pathToText;
         private string? _pathToWordList;
         private string? _pathToNamesList;
         private string? _pathToTextHashTables;
+        private string? _pathToPartyData; 
 
         public string? pathToText
         {
             get => _pathToText;
-            set
-            {
-                _pathToText = value;
-                LoadData(pathToText: _pathToText);
-            }
+            set { _pathToText = value; LoadData(pathToText: _pathToText); }
         }
 
         public string? pathToWordList
         {
             get => _pathToWordList;
-            set
-            {
-                _pathToWordList = value;
-                LoadData(pathToWordList: _pathToWordList);
-            }
+            set { _pathToWordList = value; LoadData(pathToWordList: _pathToWordList); }
         }
 
         public string? pathToNamesList
         {
             get => _pathToNamesList;
-            set
-            {
-                _pathToNamesList = value;
-                LoadData(pathToNamesList: _pathToNamesList);
-            }
+            set { _pathToNamesList = value; LoadData(pathToNamesList: _pathToNamesList); }
         }
 
         public string? pathToTextHashTables
         {
             get => _pathToTextHashTables;
-            set
-            {
-                _pathToTextHashTables = value;
-                LoadData(pathToTextHashTables: _pathToTextHashTables);
-            }
+            set { _pathToTextHashTables = value; LoadData(pathToTextHashTables: _pathToTextHashTables); }
+        }
+
+        public string? pathToPartyData
+        {
+            get => _pathToPartyData;
+            set { _pathToPartyData = value; LoadData(pathToPartyData: _pathToPartyData); }
         }
         
         public static readonly int[] Dx = [1, -1, 0, 0];
@@ -64,7 +60,14 @@ namespace Algorithms
         public string[] SearchSuccessWords = [];
         public string[] SearchFailWords = [];
 
-        public void LoadData(string? pathToText = null, string? pathToWordList = null, string? pathToNamesList = null, string? pathToTextHashTables = null)
+        public List<string> PartyGuests = new();
+        public Dictionary<string, List<string>> PartyGraph = new();
+
+        public void LoadData(string? pathToText = null, 
+                            string? pathToWordList = null, 
+                            string? pathToNamesList = null, 
+                            string? pathToTextHashTables = null, 
+                            string? pathToPartyData = null)
         {
             if(pathToText != null)
             {
@@ -92,7 +95,6 @@ namespace Algorithms
                 {
                     SearchHashTables[i] = InsertHashTables[rand.Next(0, InsertHashTables.Length)];
                 }
-
                 
                 UniqueWords = InsertHashTables
                     .Where(w => !string.IsNullOrEmpty(w))
@@ -105,6 +107,35 @@ namespace Algorithms
                     .Take(2000)
                     .Select(w => w + "_FAIL")
                     .ToArray();
+            }
+
+            if(pathToPartyData != null)
+            {
+                PartyGuests.Clear();
+                PartyGraph.Clear();
+
+                string[] lines = File.ReadAllLines(pathToPartyData);
+                foreach (var line in lines)
+                {
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+                    var parts = line.Split('-', StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < parts.Length; i++) parts[i] = parts[i].Trim();
+
+                    foreach (var person in parts)
+                    {
+                        if (!PartyGuests.Contains(person))
+                        {
+                            PartyGuests.Add(person);
+                            PartyGraph[person] = new List<string>();
+                        }
+                    }
+
+                    if (parts.Length == 2)
+                    {
+                        PartyGraph[parts[0]].Add(parts[1]);
+                        PartyGraph[parts[1]].Add(parts[0]);
+                    }
+                }
             }
         }
     }
