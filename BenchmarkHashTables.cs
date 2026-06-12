@@ -40,7 +40,7 @@ namespace Algorithms
         public void GlobalSetup()
         {
             _tools = new Tools();
-            _tools.pathToTextHashTables = @"data\texts\war_and_peace.txt";
+            _tools.pathToTextHashTables = Tools.ResolvePath("data", "texts", "war_and_peace.txt");
 
             if (_tools.UniqueWords.Length < Capacity)
             {

@@ -7,6 +7,51 @@ namespace Algorithms
 {
     public class Tools
     {
+        public static string ResolvePath(params string[] relativeParts)
+        {
+            if (relativeParts == null || relativeParts.Length == 0)
+            {
+                throw new ArgumentException("Path parts must not be empty.", nameof(relativeParts));
+            }
+
+            string relativePath = Path.Combine(relativeParts);
+
+            foreach (string root in EnumerateSearchRoots())
+            {
+                string candidate = Path.GetFullPath(Path.Combine(root, relativePath));
+                if (File.Exists(candidate) || Directory.Exists(candidate))
+                {
+                    return candidate;
+                }
+            }
+
+            return Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), relativePath));
+        }
+
+        private static IEnumerable<string> EnumerateSearchRoots()
+        {
+            var visited = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            string[] starts =
+            [
+                Directory.GetCurrentDirectory(),
+                AppContext.BaseDirectory
+            ];
+
+            foreach (string start in starts)
+            {
+                var dir = new DirectoryInfo(start);
+                while (dir != null)
+                {
+                    if (visited.Add(dir.FullName))
+                    {
+                        yield return dir.FullName;
+                    }
+
+                    dir = dir.Parent;
+                }
+            }
+        }
+
         private string? _pathToText;
         private string? _pathToWordList;
         private string? _pathToNamesList;

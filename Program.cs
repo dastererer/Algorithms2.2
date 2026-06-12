@@ -7,9 +7,9 @@ class Program
     static void TestSpellChecker()
     {
         Tools tools = new Tools();
-        tools.pathToText = @"data\texts\little_prince__with_errors.txt";
-        tools.pathToWordList = @"data\dictionaries\english_words.txt";
-        tools.pathToNamesList = @"data\dictionaries\english_names.txt";
+        tools.pathToText = Tools.ResolvePath("data", "texts", "little_prince__with_errors.txt");
+        tools.pathToWordList = Tools.ResolvePath("data", "dictionaries", "english_words.txt");
+        tools.pathToNamesList = Tools.ResolvePath("data", "dictionaries", "english_names.txt");
 
         var naiveResult = Naive.RunAlgorithm(tools.text, tools.wordList, tools.namesList);
         var bbstResult = BBST.RunAlgorithm(tools.text, tools.wordList, tools.namesList);
@@ -53,7 +53,7 @@ class Program
     static void TestParty()
     {
         Tools tools = new Tools();
-        tools.pathToPartyData = @"data\texts\party.txt";
+        tools.pathToPartyData = Tools.ResolvePath("data", "texts", "party.txt");
 
         if (PartyPlanner.RunAlgorithm(tools, out var seatingPlan))
         {

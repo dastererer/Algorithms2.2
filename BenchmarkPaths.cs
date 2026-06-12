@@ -6,8 +6,8 @@ namespace Algorithms
 {
     internal static class BenchmarkPaths
     {
-        private const string CommonBenchmarksRoot = "common/benchmarks";
-        private const string ParentCommonBenchmarksRoot = "../common/benchmarks";
+        private static readonly string CommonBenchmarksRoot = Path.Combine("common", "benchmarks");
+        private static readonly string ParentCommonBenchmarksRoot = Path.Combine("..", "common", "benchmarks");
         private const string ProjectFolder = "algorithms2_2";
         private const string LocalRoot = "BenchmarkDotNet.Artifacts";
 
