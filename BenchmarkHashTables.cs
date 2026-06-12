@@ -8,9 +8,10 @@ namespace Algorithms
     [MemoryDiagnoser]
     public class BenchmarkHashTables
     {
-        private Tools _tools;
+        private Tools _tools = null!;
         
         private const int Capacity = 15013; 
+        private const int FailWordsCount = 2000;
 
         [ParamsSource(nameof(LoadFactorValues))]
         public double LoadFactor { get; set; }
@@ -18,18 +19,21 @@ namespace Algorithms
         {
             get
             {
-                for (double i = 0.001; i <= 0.950; i += 0.001)
+                for (double i = 0.05; i <= 0.95; i += 0.05)
                 {
                     yield return Math.Round(i, 3);
                 }
             }
         }
 
-        private ChainingHashTable<string, string> _chainingTable;
-        private LinearProbingHashTable<string, string> _linearTable;
-        private DoubleHashingHashTable<string, string> _doubleTable;
+        private ChainingHashTable<string, string> _chainingTable = null!;
+        private LinearProbingHashTable<string, string> _linearTable = null!;
+        private DoubleHashingHashTable<string, string> _doubleTable = null!;
 
         private int _wordIndex;
+        private string[] _searchSuccessWords = [];
+        private string[] _searchFailWords = [];
+        private string[] _insertWords = [];
 
         [GlobalSetup]
         public void GlobalSetup()
@@ -51,6 +55,23 @@ namespace Algorithms
             _doubleTable = new DoubleHashingHashTable<string, string>(Capacity);
 
             int itemsToPreFill = (int)(Capacity * LoadFactor);
+            if (itemsToPreFill <= 0)
+            {
+                itemsToPreFill = 1;
+            }
+
+            int remainingItems = _tools.UniqueWords.Length - itemsToPreFill;
+            if (remainingItems <= 0)
+            {
+                throw new Exception("Not enough words for insert benchmark.");
+            }
+
+            _searchSuccessWords = _tools.UniqueWords.Take(itemsToPreFill).ToArray();
+            _insertWords = _tools.UniqueWords.Skip(itemsToPreFill).ToArray();
+            _searchFailWords = _insertWords
+                .Take(Math.Min(FailWordsCount, _insertWords.Length))
+                .Select(word => word + "_FAIL")
+                .ToArray();
 
             for (int i = 0; i < itemsToPreFill; i++)
             {
@@ -84,22 +105,27 @@ namespace Algorithms
 
 
         [Benchmark]
-        public void Insert_Chaining() => _chainingTable.Insert(GetNextSuccessWord(), "updated");
+        public void Insert_Chaining() => _chainingTable.Insert(GetNextInsertWord(), "inserted");
 
         [Benchmark]
-        public void Insert_Linear() => _linearTable.Insert(GetNextSuccessWord(), "updated");
+        public void Insert_Linear() => _linearTable.Insert(GetNextInsertWord(), "inserted");
 
         [Benchmark]
-        public void Insert_Double() => _doubleTable.Insert(GetNextSuccessWord(), "updated");
+        public void Insert_Double() => _doubleTable.Insert(GetNextInsertWord(), "inserted");
 
         private string GetNextSuccessWord()
         {
-            return _tools.SearchSuccessWords[_wordIndex++ % _tools.SearchSuccessWords.Length];
+            return _searchSuccessWords[_wordIndex++ % _searchSuccessWords.Length];
         }
 
         private string GetNextFailWord()
         {
-            return _tools.SearchFailWords[_wordIndex++ % _tools.SearchFailWords.Length];
+            return _searchFailWords[_wordIndex++ % _searchFailWords.Length];
+        }
+
+        private string GetNextInsertWord()
+        {
+            return _insertWords[_wordIndex++ % _insertWords.Length];
         }
     }
 }
