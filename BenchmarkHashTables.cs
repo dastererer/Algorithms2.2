@@ -5,6 +5,7 @@ using Algorithms.HashTables;
 
 namespace Algorithms
 {
+    [Config(typeof(Algorithms22BenchmarkConfig))]
     [MemoryDiagnoser]
     public class BenchmarkHashTables
     {

@@ -3,6 +3,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace Algorithms
 {
+    [Config(typeof(Algorithms22BenchmarkConfig))]
     [MemoryDiagnoser]
     public class BenchmarkDictionaryRaces
     {
