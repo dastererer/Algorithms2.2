@@ -177,9 +177,10 @@ The project now has a console menu oriented around the implemented tasks instead
 Run:
 
 ```powershell
-cd C:\Develop\University\Algorithms2.2
 dotnet run
 ```
+
+All commands below assume you run them from the repository root.
 
 Available menu groups:
 
@@ -194,10 +195,10 @@ Direct command arguments are also supported:
 dotnet run -- part1a
 dotnet run -- part1b
 dotnet run -- part1c
-dotnet run -- part1-benchmarks
-dotnet run -- part4
-dotnet run -- part5
-dotnet run -- all-benchmarks
+dotnet run --configuration Release -- part1-benchmarks
+dotnet run --configuration Release -- part4
+dotnet run --configuration Release -- part5
+dotnet run --configuration Release -- all-benchmarks
 ```
 
 ## Generating Graphs
@@ -207,7 +208,6 @@ The Python script reads BenchmarkDotNet CSV files and builds charts with matplot
 Run:
 
 ```powershell
-cd C:\Develop\University\Algorithms2.2
 py -3 plot_benchmarks.py
 ```
 
@@ -253,13 +253,19 @@ dotnet run
 Run hash table benchmarks only:
 
 ```powershell
-dotnet run -- part4
+dotnet run --configuration Release -- part4
 ```
 
 Run dictionary race benchmarks only:
 
 ```powershell
-dotnet run -- part5
+dotnet run --configuration Release -- part5
+```
+
+Run all benchmarks:
+
+```powershell
+dotnet run --configuration Release -- all-benchmarks
 ```
 
 Generate plots from CSV:
