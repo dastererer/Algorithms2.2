@@ -5,7 +5,7 @@ namespace Algorithms
     [MemoryDiagnoser]
     public class BenchmarkSpellCheckers
     {
-        private Tools _tools;
+        private Tools _tools = null!;
 
         [GlobalSetup]
         public void Setup()
@@ -40,6 +40,18 @@ namespace Algorithms
         {
             TrieAlg.RunAlgorithm(_tools.text, _tools.wordList, _tools.namesList);
         } 
+
+        [Benchmark]
+        public void BenchmarkTernaryTrie()
+        {
+            TernaryTrieAlg.RunAlgorithm(_tools.text, _tools.wordList, _tools.namesList);
+        }
+
+        [Benchmark]
+        public void BenchmarkDAT()
+        {
+            DoubleArrayTrieAlg.RunAlgorithm(_tools.text, _tools.wordList, _tools.namesList);
+        }
         
         [Benchmark]
         public void BenchmarkHashMapBuild()
@@ -56,6 +68,18 @@ namespace Algorithms
         {
             TrieAlg.Build(_tools.wordList, _tools.namesList);
         } 
+
+        [Benchmark]
+        public void BenchmarkTernaryTrieBuild()
+        {
+            TernaryTrieAlg.Build(_tools.wordList, _tools.namesList);
+        }
+
+        [Benchmark]
+        public void BenchmarkDATBuild()
+        {
+            DoubleArrayTrieAlg.Build(_tools.wordList, _tools.namesList);
+        }
 
 
     }

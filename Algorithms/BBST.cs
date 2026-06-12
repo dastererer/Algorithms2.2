@@ -1,8 +1,10 @@
+using Algorithms.HashTables;
+
 namespace Algorithms
 {
     class BBST
     {
-        public static string[] RunAlgorithm(string[] text, string[] wordList, string[] namesList, SortedSet<string>? wordSet = null)
+        public static string[] RunAlgorithm(string[] text, string[] wordList, string[] namesList, RedBlackTree? wordSet = null)
         {
             var wrongSpells = new List<string>();
 
@@ -17,9 +19,14 @@ namespace Algorithms
             }
             return wrongSpells.ToArray(); 
         }
-        public static SortedSet<string> Build(string[] wordList, string[] namesList)
+        public static RedBlackTree Build(string[] wordList, string[] namesList)
         {
-            var wordSet = new SortedSet<string>(wordList.Concat(namesList), StringComparer.OrdinalIgnoreCase);
+            var wordSet = new RedBlackTree();
+            foreach (var word in wordList.Concat(namesList))
+            {
+                wordSet.Insert(word);
+            }
+
             return wordSet;
         }
     }
