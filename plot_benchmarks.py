@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 
 ROOT = Path(__file__).resolve().parent
-COMMON_BENCH = ROOT.parent / "common" / "benchmarks" / "algorithms2_2"
+COMMON_BENCH = ROOT / "common" / "benchmarks" / "algorithms2_2"
 LOCAL_BENCH = ROOT
 BENCH_ROOT = COMMON_BENCH if COMMON_BENCH.exists() else LOCAL_BENCH
 RESULTS_DIR = BENCH_ROOT / "BenchmarkDotNet.Artifacts" / "results"

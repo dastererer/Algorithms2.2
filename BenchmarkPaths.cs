@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Jobs;
 
 namespace Algorithms
 {
@@ -45,6 +46,14 @@ namespace Algorithms
         public Algorithms22BenchmarkConfig()
         {
             ArtifactsPath = BenchmarkPaths.ResolveArtifactsPath();
+
+            // Aggressive profile: more process launches and more measurement iterations.
+            AddJob(
+                Job.Default
+                    .WithId("Aggressive")
+                    .WithLaunchCount(3)
+                    .WithWarmupCount(12)
+                    .WithIterationCount(25));
         }
     }
 }

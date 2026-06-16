@@ -7,7 +7,7 @@ class Program
     static void TestSpellChecker()
     {
         Tools tools = new Tools();
-        tools.pathToText = Tools.ResolvePath("data", "texts", "little_prince__with_errors.txt");
+        tools.pathToText = Tools.ResolvePath("data", "texts", "The_Gift_of_the_Magi.txt");
         tools.pathToWordList = Tools.ResolvePath("data", "dictionaries", "english_words.txt");
         tools.pathToNamesList = Tools.ResolvePath("data", "dictionaries", "english_names.txt");
 
@@ -84,13 +84,14 @@ class Program
 
     static void Main(string[] args)
     {
-        if (args.Length > 0)
-        {
-            RunFromArgs(args[0]);
-            return;
-        }
+        // if (args.Length > 0)
+        // {
+        //     RunFromArgs(args[0]);
+        //     return;
+        // }
 
-        ShowMainMenu();
+        // ShowMainMenu();
+        RunAllBenchmarks();
     }
 
     static void RunFromArgs(string command)

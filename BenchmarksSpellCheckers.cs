@@ -13,7 +13,7 @@ namespace Algorithms
         {
             _tools = new Tools(); 
 
-            _tools.pathToText = Tools.ResolvePath("data", "texts", "little_prince__with_errors.txt");
+            _tools.pathToText = Tools.ResolvePath("data", "texts", "The_Gift_of_the_Magi.txt.txt");
             _tools.pathToWordList = Tools.ResolvePath("data", "dictionaries", "english_words.txt");
             _tools.pathToNamesList = Tools.ResolvePath("data", "dictionaries", "english_names.txt");
             

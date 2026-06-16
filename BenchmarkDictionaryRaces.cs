@@ -16,7 +16,7 @@ namespace Algorithms
         private TernarySearchTree _ternaryTrie = null!;
         private DoubleArrayTrie _doubleArrayTrie = null!;
 
-        [Params(5000, 10000, 20000)]
+        [Params(2000, 5000, 10000, 20000, 30000)]
         public int DictionarySize { get; set; }
 
         [GlobalSetup]

@@ -20,7 +20,7 @@ namespace Algorithms
         {
             get
             {
-                for (double i = 0.05; i <= 0.95; i += 0.05)
+                for (double i = 0.05; i <= 0.95; i += 0.025)
                 {
                     yield return Math.Round(i, 3);
                 }
