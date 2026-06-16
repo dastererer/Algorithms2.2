@@ -9,10 +9,22 @@ import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parent
 COMMON_BENCH = ROOT / "common" / "benchmarks" / "algorithms2_2"
-LOCAL_BENCH = ROOT
-BENCH_ROOT = COMMON_BENCH if COMMON_BENCH.exists() else LOCAL_BENCH
-RESULTS_DIR = BENCH_ROOT / "BenchmarkDotNet.Artifacts" / "results"
-OUTPUT_DIR = BENCH_ROOT / "graphs"
+COMMON_RESULTS_DIR = COMMON_BENCH / "BenchmarkDotNet.Artifacts" / "results"
+LOCAL_RESULTS_DIR = ROOT / "BenchmarkDotNet.Artifacts" / "results"
+
+
+def has_report_csv(directory):
+    return directory.exists() and any(directory.glob("*-report.csv"))
+
+
+if has_report_csv(LOCAL_RESULTS_DIR):
+    RESULTS_DIR = LOCAL_RESULTS_DIR
+elif has_report_csv(COMMON_RESULTS_DIR):
+    RESULTS_DIR = COMMON_RESULTS_DIR
+else:
+    RESULTS_DIR = LOCAL_RESULTS_DIR
+
+OUTPUT_DIR = ROOT / "graphs"
 
 
 def parse_number(value):

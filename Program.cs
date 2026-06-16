@@ -84,14 +84,13 @@ class Program
 
     static void Main(string[] args)
     {
-        // if (args.Length > 0)
-        // {
-        //     RunFromArgs(args[0]);
-        //     return;
-        // }
+        if (args.Length > 0)
+        {
+            RunFromArgs(args[0]);
+            return;
+        }
 
-        // ShowMainMenu();
-        RunAllBenchmarks();
+        ShowMainMenu();
     }
 
     static void RunFromArgs(string command)
